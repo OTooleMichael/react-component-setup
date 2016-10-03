@@ -4,6 +4,7 @@
   "description": "react setup environment for Components that will be shared on npm",
   "main": "index.js",
   "scripts": {
+    "build": "./node_modules/.bin/babel ./src/client/app/app.jsx -o index.js",
     "dev": "webpack -d --watch",
     "prepublish": "webpack -p"
   },
