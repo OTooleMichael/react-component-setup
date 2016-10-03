@@ -1,49 +1,107 @@
-import React from 'react'
-import { render } from 'react-dom'
-import DataTable from "./Table.jsx";
+import React from 'react';
+import TableHeader from "./TableHeader.jsx";
+import TableRow from "./TableRow.jsx";
 
-
-class App extends React.Component {
-	constructor(props){
-		super(props)
-		var data = [
-			{name:"a",age:10,dob:new Date("2016-08-10"),food:"d"},
-			{name:"a",age:22,dob:new Date("2006-08-01"),food:"if"},
-			{name:"k",age:30,dob:new Date("2016-08-10"),food:"k"},
-			{name:"b",age:23,dob:new Date("2016-08-01"),food:"t"},
-			{name:"f",age:2,dob:new Date("2015-08-10"),food:"d"},
-			{name:"a",age:12,dob:new Date("2016-08-01"),food:"d"},
-			{name:"r",age:20,dob:new Date("2016-09-13"),food:"d"},
-			{name:"a",age:24,dob:new Date("2016-08-02"),food:"z"},
-			{name:"a",age:16,dob:new Date("2014-08-21"),food:"d"},
-			{name:"k",age:30,dob:new Date("2016-08-10"),food:"k"},
-			{name:"b",age:23,dob:new Date("2016-08-01"),food:"t"},
-			{name:"f",age:2,dob:new Date("2015-08-10"),food:"d"},
-			{name:"a",age:12,dob:new Date("2016-08-01"),food:"d"},
-			{name:"r",age:20,dob:new Date("2016-09-13"),food:"d"},
-			{name:"a",age:24,dob:new Date("2016-08-02"),food:"z"},
-			{name:"a",age:16,dob:new Date("2014-08-21"),food:"d"},
-		];
-		data = data.map(function(r,i){
-			r.id = i;
-			return r
-		})
-		this.state={
-			data:data,
-			inFocus:null
+class DataTable extends React.Component {
+	constructor(props) {
+		super(props);
+		var columns = this.props.columns.map(function(col){
+			if(typeof col == "string"){
+				return {title:col,stringify:true}
+			}else{
+				return col
+			}
+		});
+		this.state = {
+			columns:columns,
+			orderCol:columns[0].title,
+			orderAsc:true,
+			searchText:"",
+			searchValue:null,
+			cellClick:this.props.cellClick || function(){},
+			page:0,
+			pageLength:this.props.pageLength || 10,
+			usePages:this.props.pagination||true,
+			showFilter:this.props.showFilter || true,
+			isFilterNotSearch:false
 		}
 	}
-	intoFocus(cellClick){
-		var row = this.state.data[cellClick.rowData.id];
-		this.setState({inFocus:JSON.stringify(row)});
+	orderTable(orderCol){
+		var orderAsc = !this.state.orderAsc;
+		this.setState({orderCol:orderCol,orderAsc:orderAsc});
 	}
+
+	makeRows(){
+		var data =  this.props.data;
+		if(this.state.searchValue){
+			data = data.filter(function(r){
+				var str = JSON.stringify(r);
+				return (this.state.isFilterNotSearch) ? (str.search(this.state.searchValue) == -1) : (str.search(this.state.searchValue) != -1);
+			}.bind(this));
+		}
+		var property = this.state.orderCol;
+		var direction = (this.state.orderAsc) ? 1:-1;
+		data = data.sort(function(a,b){
+		    var r = (a[property] < b[property] ) ? -1 : (a[property] > b[property]) ? 1 : 0;
+		    return r*direction
+		});
+		var j = this.state.page*this.state.pageLength;
+		var k = (this.usePages) ? (j + this.state.pageLength) : data.length;
+		var rows = [];
+		for(;(j<k&&j<data.length);j++){
+			rows.push(	(<TableRow key={"R"+j} row={j} data={data[j]} columns={this.state.columns} cellClick={this.state.cellClick}/>) );
+		}
+		return rows
+	}
+	changePage(move){
+		var page = this.state.page+move;
+		if(page*this.state.pageLength > this.props.data.length) return
+		this.setState({page:page});
+	}
+	pagination(){
+		if(this.state.usePages){
+			return (<div>
+				<button onClick={function(){this.changePage(-1)}.bind(this)}>Prev</button>
+				<button onClick={function(){this.changePage(1)}.bind(this)}>Next</button>
+			</div>)
+		}else{
+			return (<div></div>)
+		}
+	}
+	isSearch(){
+		if(this.state.showFilter){
+			var text = (this.state.isFilterNotSearch) ? "Filter" : "Search";
+			return (<div>
+				<span onClick={this.toggleFilter.bind(this)}>{text}</span>
+				<input value={this.state.searchText} onChange={this.setSearch.bind(this)}/>		
+			</div>)
+		}else{
+			return null
+		}
+	}
+	setSearch(event){
+		var val = event.target.value;
+		if(val.length > 0){
+			this.setState({searchText:val,searchValue:val});
+		}else{
+			this.setState({searchText:val,searchValue:null});
+		}
+	}
+	toggleFilter(){
+		var change = !this.state.isFilterNotSearch;
+		this.setState({isFilterNotSearch:change});
+	}
+
 	render(){
-		
-		var columns = ["name","age",{title:"dob",process:function(dob){return dob.toISOString().split("T")[0]}},"food"];
-		return (<div>
-			<DataTable data={this.state.data} columns={columns} cellClick={this.intoFocus.bind(this)}/>
-			<span>{JSON.stringify(this.state.inFocus)}</span>
-		</div>)
+		return(<div>
+			{this.isSearch()}
+			<table className="dataTable">
+			<TableHeader columns={this.state.columns} orderCol={this.state.orderCol} orderAsc={this.state.orderAsc} orderTable={this.orderTable.bind(this)}/>
+			<tbody>{this.makeRows()}</tbody>
+			</table>
+			{this.pagination()}
+			</div>)
 	}
 }
-render(<App/>, document.getElementById('app'));
+
+export default DataTable
