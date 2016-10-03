@@ -1,0 +1,275 @@
+body {
+  background-color: rgb(242,242,255);
+}
+
+button, input,select{
+    height: 25;
+    font-size: 13;
+    max-width:100%;
+}
+
+p,li,a {
+
+}
+form {
+  margin:0;
+}
+
+textarea{
+  width:100%;
+  font-size:15px;
+}
+
+h1 {
+  color: maroon;
+  text-align:center;
+  margin-left: 40px;
+  font-size: 50;
+} 
+ 
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align:center;
+}
+
+.wrap{
+  max-width:1500px;
+  margin:0 auto;
+  padding-bottom:1.5%;
+  
+}
+.header{
+  width:100%;
+  clear:both;
+}
+
+.options{
+  float:left;
+  width:25%;
+  padding:1vw;
+  min-width: 240px;
+  box-sizing: border-box;
+}
+
+#bets{
+  background: white;
+  height: 97%;
+  overflow: scroll;
+  border: 2px solid #73AD21;
+  margin:0 40 10 0;
+}
+.infoBox{
+  position: fixed;
+  font-size: 0.9em;
+  z-index:1;
+  box-sizing: border-box;
+  border-width: 1;
+  border-style: solid;
+  border-color: green;
+  background: white;
+  padding:0.5vw;
+  margin:0.50vw;
+}
+#coreInfo{
+  top:0;
+  left:0;
+}
+#betfairButton{
+  top:0;
+  right:0;
+}
+
+.horse{
+  min-width:125px;
+  width:16.5%;
+  float:left;
+  padding:10;
+  height:150;
+  border:white solid 1px;
+  background: LightCyan;
+  box-sizing: border-box;
+}
+
+.overview{
+  float:left;
+  width:100%;
+  height:100%;
+  max-width: 170px;
+  overflow:hidden;
+  padding: 10;
+  box-sizing: border-box;
+}
+.hfoot{
+  background: black;
+  width:100%;
+  height:4;
+  clear:both;
+  padding:0;
+  min-height:1;
+  border: 1px solid white;
+}
+.extra{
+  float:left;
+  display:none;
+  background: white;
+  padding: 10;
+  box-sizing: border-box;
+  width:100%;
+}
+.extra table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align:center;
+    padding:3;
+}
+
+.extra table{
+  width:100%;
+}
+
+#bottom{
+  background: yellow;
+  height: 3%;
+  width:100%;
+  display:block;
+  position:fixed;
+  bottom:0;
+  z-index: 1;
+}
+
+#form{
+  border: 0px solid black;
+}
+
+#dmess{
+  background: white;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin:5;
+  width: 15%;
+  height:150px;
+  border: 2px solid #73AD21;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+#mlist{
+  background:Lightgrey;
+  height:109;
+  overflow: scroll;
+}
+
+#dmess form { 
+  background: #000; 
+  padding: 2px; 
+}
+#dmess form input { 
+  border: 0;
+  padding: 1vw;
+  width: 80%;
+  height: inherit;
+  box-sizing: border-box;
+}
+#dmess form button { 
+  width: 20%;
+  background: rgb(130, 224, 255);
+  border: none; 
+  padding: 1vw;
+  overflow: hidden;
+  height: inherit;
+  box-sizing: border-box;
+}
+#messages { list-style-type: none; margin: 0; padding: 0; }
+#messages li { padding: 1vw 1vh; }
+#messages li:nth-child(odd) { background: #eee; }
+#betFormHolder {
+  position: absolute;  
+}
+#betborder {
+  background: beige;
+  border: 2px solid #73AD21;
+  padding:1vmax;
+  z-index: 3;
+  margin:10vh auto;
+  width: 50vw;
+  height:80vh;
+  box-sizing: border-box;
+  overflow: scroll;
+}
+#cover{
+  top:0;
+  left:0;
+  position: fixed;
+  min-width: 100vw;
+  min-height: 100vh; 
+  background: rgba(50,50,50,0.3);
+  z-index: 4;
+}
+
+@media screen and (max-width: 800px) {
+body {
+  font-size: 3vmax;
+}
+button, input,select{
+    height: inherit;
+    font-size: inherit;
+}
+.header{
+  max-width:98vw;
+}
+.wrap{
+  max-width:98vw;
+  margin:0 2vw 0 0;
+}
+#bets{
+  background: white;
+  height: 97vh;
+  overflow: scroll;
+  border: 2px solid #73AD21;
+  margin:0;
+}
+.options{
+  width:50%;
+  min-width:200;
+}
+.horse{
+  width:33%;
+  min-width: 160px;
+  height:20vw;
+}
+#dmess{
+  margin:10;
+  width: 50vw;
+  bottom:2vh;
+  max-width:250px;
+  height:20vh;
+  min-height: 100px;
+  box-sizing: border-box;
+}
+#mlist{
+  background:Lightgrey;
+  height:75%;
+
+  overflow: scroll;
+}
+#dmess form { 
+  background: #000; 
+  padding: 0;
+
+}
+
+#bottom{
+  height: 3vh;
+  width:100vw;
+  display:block;
+  position:fixed;
+  bottom:0;
+}
+
+
+
+
+
+}/// end of 700px media screen

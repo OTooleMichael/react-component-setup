@@ -1,0 +1,82 @@
+body {
+  background-color: linen;
+  font-size:20px;
+}
+
+button, input,select{
+	width:300px; 
+	height:35px; 
+	font-size:25;
+}
+
+p,li,a {
+  font-size: 20px;
+}
+
+textarea{
+  width:300px;
+  font-size:15px;
+}
+
+h1 {
+  color: maroon;
+  text-align:center;
+  margin-left: 40px;
+  font-size: 50;
+} 
+ 
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align:center;
+}
+
+#form{
+    border: 0px solid black;
+}
+
+#wrap{
+  max-width:700px;
+  margin:0 auto;
+}
+
+#coreInfo{
+  position: fixed;
+  top:0;
+  left:0;
+  z-index:1;
+  box-sizing: border-box;
+  border-width: 2;
+  border-style: solid;
+  border-color: green;
+}
+
+@media screen and (max-width: 700px) {
+
+
+p,li,body,a {
+    font-size: 3vw
+}
+
+h1 {
+    font-size:8vw;
+	}
+
+button {
+    width:48%; 
+    height:5.5vw; 
+    font-size:3.5vw;
+  }
+
+input, select{
+	width:60vw;
+	height:6vw;
+	font-size:5vw;
+}
+
+textarea{
+	width:60vw;
+	font-size:4vw;
+}
+
+}/// end of 700px media screen

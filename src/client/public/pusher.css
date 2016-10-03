@@ -1,0 +1,323 @@
+body {
+  background-color: rgb(242,242,255);
+}
+div{
+  box-sizing: border-box;
+}
+
+button, input,select{
+    height: 25;
+    font-size: 13;
+    max-width:100%;
+}
+
+input.small{
+  max-width:20%;
+}
+.littleBet{
+  clear:both;
+  display: block;
+}
+.optionsElement{
+  padding:0.5vw;
+  background: white;
+  clear:both;
+  overflow: hidden;
+}
+.optionsElement:nth-child(odd) {
+  background: rgb(250,250,250);
+}
+
+
+form {
+  margin:0;
+}
+
+textarea{
+  width:100%;
+  font-size:15px;
+}
+
+h1 {
+  color: maroon;
+  text-align:center;
+  font-size: 50;
+} 
+h4{
+  margin:0.1vmax;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align:center;
+}
+.extra table{
+  width:100%;
+}
+.extra th,td{
+  text-align: left;
+}
+.extra{
+  padding:0.5vmax;
+  border-radius: 10px;
+  width:100%;
+  float:left;
+  border:0.1vmax solid black;
+  margin-bottom:0.5vh;
+}
+.extra:nth-child(odd) {
+  background: rgba(140,230,230,0.1);
+}
+.wrap{
+  max-width:1500px;
+  margin:0 auto;
+  padding-bottom:1.5%;
+  
+}
+.header{
+  width:100%;
+  clear:both;
+}
+
+.options{
+  float:left;
+  width:25%;
+  padding:1vw;
+  min-width: 240px;
+}
+.optionsPanel{
+  padding:5px;
+}
+
+
+#bets{
+  background: white;
+  height: 97%;
+  width: 97%;
+  overflow: scroll;
+  border: 2px solid #73AD21;
+  margin:0 40 10 0;
+}
+.infoBox{
+  position: fixed;
+  font-size: 0.9em;
+  z-index:1;
+  border-width: 1;
+  border-style: solid;
+  border-color: green;
+  background: white;
+  padding:0.5vw;
+  margin:0.50vw;
+}
+.info{
+  top:0;
+  left:0;
+}
+.fairButton{
+  top:0;
+  right:0;
+}
+.infoBox.red{
+  background: rgb(255,240,240)
+}
+.infoBox.green{
+  background: rgb(240,255,240)
+}
+.filterDiv{
+  float:left;
+  width:50%;
+  padding:1vw;
+  text-align: center;
+  border:solid black 1px;
+}
+
+.slider{
+  padding-left:7;
+  padding-right: 7;
+}
+
+
+.filterButton{
+  border:solid black 1px;
+  border-radius: 10px;
+}
+.filterButton.true{
+  background: green
+}
+.filterButton.false{
+  background: salmon
+}
+.horse{
+  min-width:125px;
+  width:16.5%;
+  float:left;
+  padding:0.4vw;
+  height:150;
+  background: cyan;
+  border:white solid 1px;
+  border-radius: 10px;
+}
+.overview{
+  float:left;
+  width:100%;
+  height:95%;
+  overflow:hidden;
+  padding: 0.5vw;
+  border-radius: 10px;
+}
+.horseFooter{
+  width:100%;
+  height:2.5%;
+  clear:both;
+  padding:0;
+}
+.horseFooter.red{
+  background: red;
+}
+.horseFooter.black{
+  background: black;
+}
+.exit {
+  position: absolute;
+  font-weight: bold;
+  padding: 0.3vmax;
+  text-align: center;
+  width: 15px;
+  height: 15px;
+  right: 0;
+  top: 0;
+  background: lightgrey;
+  border-radius: 10px;
+  border: 1px solid black;
+  margin: 0.3vmax;
+  overflow: hidden;
+  box-shadow: 0.2vw 0.2vw 0.2vw #888888;
+}
+#side{
+    z-index: 10;
+    background: white;
+    position: fixed;
+    width: 95vw;
+    max-width: 700px;
+    height: 90vh;
+    right: 0;
+    top: 5vh;
+    padding: 1vw 1vw 10vh 1vw;
+    border-radius: 10px;
+    overflow: scroll;
+}
+#sideTab{
+    background: red;
+    padding:0.2vw;
+    border-radius: 10px;
+    position: fixed;
+    right:0;
+    top:0;
+}
+#sideTab.out{
+  right:30vw;
+}
+#sideTab.out{
+  right:0;
+  height:10vh;
+}
+a.bookieLink{
+  text-decoration: none;
+  float:left;
+  padding:0.45vw;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background: rgba(240,225,240,0.8);
+}
+a.bookieLink:nth-child(odd) {
+  background: rgba(240,240,225,0.9);
+}
+a.bookieLink:hover{
+  background: rgba(240,240,225,0.4);
+  text-decoration: underline;
+}
+
+.rise-enter{
+  overflow: hidden;
+  max-height:0px;
+}
+.rise-enter.rise-enter-active {
+  max-height: 300px;
+  transition: all 300ms ease-in;
+}
+.rise-leave{
+  overflow: hidden;
+  max-height:300px;
+}
+.rise-leave.rise-leave-active {
+  max-height:0px;
+  transition: all 300ms ease-in;
+}
+.fade-enter{
+  opacity:0;
+}
+.fade-enter.fade-enter-active {
+  opacity:1;
+  transition: all 300ms ease-in;
+}
+.fade-leave{
+  opacity: 1;
+}
+.fade-leave.fade-leave-active {
+  opacity: 0;
+  transition: all 300ms ease-in;
+}
+
+
+
+#cover{
+  top:0;
+  left:0;
+  position: fixed;
+  min-width: 100vw;
+  min-height: 100vh; 
+  background: rgba(50,50,50,0.4);
+  z-index: 4;
+}
+
+@media screen and (max-width: 750px) {
+body {
+  font-size: 3vmax;
+}
+button, input,select{
+    height: inherit;
+    font-size: inherit;
+}
+
+.header{
+  max-width:98vw;
+}
+.wrap{
+  max-width:98vw;
+  margin:0 2vw 0 0;
+}
+#bets{
+  background: white;
+  height: 97vh;
+  overflow: scroll;
+  border: 2px solid #73AD21;
+  margin:0;
+}
+.options{
+  width:50%;
+  min-width:200;
+}
+.horse{
+  width:33%;
+  min-width: 160px;
+  height:20vmax;
+}
+
+.filterDiv{
+  width: 100%;
+}
+
+
+
+
+}/// end of 700px media screen
