@@ -4,19 +4,13 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
-
-var _TableHeader = require("./TableHeader.jsx");
-
-var _TableHeader2 = _interopRequireDefault(_TableHeader);
-
-var _TableRow = require("./TableRow.jsx");
-
-var _TableRow2 = _interopRequireDefault(_TableRow);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26,35 +20,132 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var DataTable = function (_React$Component) {
-	_inherits(DataTable, _React$Component);
+var TableRow = function (_React$Component) {
+	_inherits(TableRow, _React$Component);
+
+	function TableRow() {
+		_classCallCheck(this, TableRow);
+
+		return _possibleConstructorReturn(this, (TableRow.__proto__ || Object.getPrototypeOf(TableRow)).apply(this, arguments));
+	}
+
+	_createClass(TableRow, [{
+		key: "makeRow",
+		value: function makeRow() {
+			var data = this.props.data;
+			var row = this.props.row;
+			return this.props.columns.map(function (col, i) {
+				var content = data[col.title];
+				if (col.process) content = col.process(content);
+				if (content instanceof Date) content = content.toString();
+				if (col.stringify && (typeof content === "undefined" ? "undefined" : _typeof(content)) == "object") content = JSON.stringify(content);
+				var clickFun = function clickFun(event) {
+					var out = {
+						row: row,
+						col: i,
+						columnName: col.title,
+						cell: data[col.title],
+						rowData: data
+					};
+					return this.props.cellClick(out);
+				};
+				var className = "tableCell";
+				return _react2.default.createElement(
+					"td",
+					{ key: "C" + i + "-R" + row, className: className, onClick: clickFun.bind(this) },
+					content
+				);
+			}.bind(this));
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"tr",
+				{ className: "tableRow" },
+				this.makeRow()
+			);
+		}
+	}]);
+
+	return TableRow;
+}(_react2.default.Component);
+
+var TableHeader = function (_React$Component2) {
+	_inherits(TableHeader, _React$Component2);
+
+	function TableHeader() {
+		_classCallCheck(this, TableHeader);
+
+		return _possibleConstructorReturn(this, (TableHeader.__proto__ || Object.getPrototypeOf(TableHeader)).apply(this, arguments));
+	}
+
+	_createClass(TableHeader, [{
+		key: "makeHeader",
+		value: function makeHeader() {
+			return this.props.columns.map(function (col, i) {
+				var clickFun = function clickFun() {
+					var name = col.title;
+					return this.props.orderTable(name);
+				};
+				var className = "tableHeader";
+				var text = col.text || col.title;
+				var ascDesc = this.props.orderAsc ? "asc" : "desc";
+				if (this.props.orderCol == col.title) className += " " + ascDesc;
+				return _react2.default.createElement(
+					"td",
+					{ key: col.title, className: className, onClick: clickFun.bind(this) },
+					text.toString()
+				);
+			}.bind(this));
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"thead",
+				null,
+				_react2.default.createElement(
+					"tr",
+					null,
+					this.makeHeader()
+				)
+			);
+		}
+	}]);
+
+	return TableHeader;
+}(_react2.default.Component);
+
+var DataTable = function (_React$Component3) {
+	_inherits(DataTable, _React$Component3);
 
 	function DataTable(props) {
 		_classCallCheck(this, DataTable);
 
-		var _this = _possibleConstructorReturn(this, (DataTable.__proto__ || Object.getPrototypeOf(DataTable)).call(this, props));
+		var _this3 = _possibleConstructorReturn(this, (DataTable.__proto__ || Object.getPrototypeOf(DataTable)).call(this, props));
 
-		var columns = _this.props.columns.map(function (col) {
+		var columns = _this3.props.columns.map(function (col) {
 			if (typeof col == "string") {
 				return { title: col, stringify: true };
 			} else {
 				return col;
 			}
 		});
-		_this.state = {
+		_this3.state = {
 			columns: columns,
 			orderCol: columns[0].title,
 			orderAsc: true,
 			searchText: "",
 			searchValue: null,
-			cellClick: _this.props.cellClick || function () {},
+			cellClick: _this3.props.cellClick || function () {},
 			page: 0,
-			pageLength: _this.props.pageLength || 10,
-			usePages: _this.props.pagination || true,
-			showFilter: _this.props.showFilter || true,
+			pageLength: _this3.props.pageLength || 10,
+			usePages: _this3.props.pagination || true,
+			showFilter: _this3.props.showFilter || true,
 			isFilterNotSearch: false
 		};
-		return _this;
+		return _this3;
 	}
 
 	_createClass(DataTable, [{
@@ -83,7 +174,7 @@ var DataTable = function (_React$Component) {
 			var k = this.usePages ? j + this.state.pageLength : data.length;
 			var rows = [];
 			for (; j < k && j < data.length; j++) {
-				rows.push(_react2.default.createElement(_TableRow2.default, { key: "R" + j, row: j, data: data[j], columns: this.state.columns, cellClick: this.state.cellClick }));
+				rows.push(_react2.default.createElement(TableRow, { key: "R" + j, row: j, data: data[j], columns: this.state.columns, cellClick: this.state.cellClick }));
 			}
 			return rows;
 		}
@@ -165,7 +256,7 @@ var DataTable = function (_React$Component) {
 				_react2.default.createElement(
 					"table",
 					{ className: "dataTable" },
-					_react2.default.createElement(_TableHeader2.default, { columns: this.state.columns, orderCol: this.state.orderCol, orderAsc: this.state.orderAsc, orderTable: this.orderTable.bind(this) }),
+					_react2.default.createElement(TableHeader, { columns: this.state.columns, orderCol: this.state.orderCol, orderAsc: this.state.orderAsc, orderTable: this.orderTable.bind(this) }),
 					_react2.default.createElement(
 						"tbody",
 						null,
