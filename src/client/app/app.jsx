@@ -1,6 +1,6 @@
 import React from 'react';
-import TableHeader from "./TableHeader.jsx";
-import TableRow from "./TableRow.jsx";
+//import TableHeader from "./TableHeader.jsx";
+//import TableRow from "./TableRow.jsx";
 
 class DataTable extends React.Component {
 	constructor(props) {
@@ -103,5 +103,12 @@ class DataTable extends React.Component {
 			</div>)
 	}
 }
+class Test extends React.Component {
+	render(){
+		return(<div>This Test Worked</div>)
+	}
+}
 
-export default DataTable
+export default Test
+
+
