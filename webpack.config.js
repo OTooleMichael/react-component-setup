@@ -17,9 +17,6 @@ var config = {
     path: BUILD_DIR,
     filename: 'index.js'
   },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
-  ],
   module : {
     loaders : [
       {
