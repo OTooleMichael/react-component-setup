@@ -5,18 +5,14 @@ var BUILD_DIR = path.resolve(__dirname, '');
 var APP_DIR = path.resolve(__dirname, 'src/client/app');
 
 var config = {
-  entry: {
-    app: [
-      APP_DIR + '/app.jsx'
-    ],
-    vendor: [
-     'react', 'react-dom'
-    ]
-  },
+  entry:APP_DIR + '/app.jsx',
   output: {
     path: BUILD_DIR,
     filename: 'index.js'
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+  ],
   module : {
     loaders : [
       {
